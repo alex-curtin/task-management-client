@@ -1,18 +1,20 @@
 import { ActionType } from "../action-types";
 import { Action } from "../actions";
 
-import { Project, ErrorType } from "../types";
+import type { ProjectType, ErrorType, TaskType } from "../../types";
 
 interface ProjectState {
 	loading: boolean;
-	error: string | null;
-	projects: Project[];
+	error: ErrorType | null;
+	project: Project | null;
+	tasks: TaskType[];
 }
 
 const initialState: ProjectState = {
 	loading: false,
 	error: null,
-	projects: [],
+	project: null,
+	tasks: [],
 };
 
 const reducer = (
@@ -21,24 +23,33 @@ const reducer = (
 	action: Action,
 ): ProjectState => {
 	switch (action.type) {
-		case ActionType.GET_PROJECTS_START:
+		case ActionType.GET_PROJECT_START:
+		case ActionType.GET_PROJECT_TASKS_START:
 			return {
 				...state,
 				loading: true,
 			};
-		case ActionType.GET_PROJECTS_SUCCESS:
+		case ActionType.GET_PROJECT_SUCCESS:
 			return {
 				...state,
 				loading: false,
-				projects: action.payload,
+				project: action.payload,
 			};
-		case ActionType.GET_PROJECTS_ERROR:
+		case ActionType.GET_PROJECT_TASKS_SUCCESS:
 			return {
 				...state,
 				loading: false,
-				error: action.payload,
-				projects: [],
+				tasks: action.payload,
 			};
+		case ActionType.GET_PROJECT_ERROR:
+		case ActionType.GET_PROJECT_TASKS_ERROR:
+			return {
+				...state,
+				loading: false,
+				project: null,
+				tasks: [],
+			};
+
 		default:
 			return state;
 	}

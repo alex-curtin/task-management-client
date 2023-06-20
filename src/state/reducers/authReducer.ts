@@ -1,5 +1,6 @@
 import { ActionType } from "../action-types";
 import { Action } from "../actions";
+import { ErrorType, UserType } from "..";
 
 interface Error {
 	message: string;
@@ -7,16 +8,13 @@ interface Error {
 
 interface AuthState {
 	loading: boolean;
-	errors: Error[] | null;
-	currentUser: {
-		id: number;
-		username: string;
-	} | null;
+	error: ErrorType | null;
+	currentUser: UserType | null;
 }
 
 export const initialState: AuthState = {
 	loading: false,
-	errors: null,
+	error: null,
 	currentUser: null,
 };
 
