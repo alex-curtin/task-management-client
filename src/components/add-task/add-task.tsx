@@ -30,7 +30,7 @@ export const AddTask: React.FC<AddTaskProps> = ({
 	const [assignee, setAssignee] = useState<UserType | null>("");
 	const [users, setUsers] = useState<UserType[]>([]);
 	const [priority, setPrioriy] = useState<number>(1);
-	const { createProjectTask } = useActions();
+	const { addProjectTask } = useActions();
 
 	useEffect(() => {
 		const fetchUsers = async () => {
@@ -50,7 +50,7 @@ export const AddTask: React.FC<AddTaskProps> = ({
 			priority,
 		};
 		console.log("creating task", body);
-		createProjectTask(body);
+		addProjectTask(body);
 		closeModal();
 	};
 
