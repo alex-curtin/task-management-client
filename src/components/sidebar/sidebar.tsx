@@ -4,6 +4,8 @@ import {
 	Accordion,
 	AccordionSummary,
 	AccordionDetails,
+	Drawer,
+	Paper,
 	Typography,
 } from "@mui/material";
 
@@ -15,6 +17,7 @@ import {
 	selectProjectsState,
 } from "../../state";
 import { AccordionComponent } from "./accordion";
+import { Header } from "./header";
 
 export const Sidebar = () => {
 	const { getAllProjects, getCurrentUserProjects, getCurrentUserTasks } =
@@ -34,7 +37,8 @@ export const Sidebar = () => {
 	}, [currentUser]);
 
 	return (
-		<Box sx={{ backgroundColor: "grey.300", minHeight: "calc(100vh - 100px)" }}>
+		<Drawer variant="permanent" anchor="left" elevation={8}>
+			<Header />
 			{currentUser && (
 				<>
 					{fetchingUserProjects ? (
@@ -74,6 +78,6 @@ export const Sidebar = () => {
 					}))}
 				/>
 			)}
-		</Box>
+		</Drawer>
 	);
 };

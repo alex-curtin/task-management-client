@@ -62,6 +62,7 @@ export const AccordionComponent: React.FC<AccordionProps> = ({
 			sx={{
 				backgroundColor: "inherit",
 				m: "0 !important",
+				width: "200px",
 			}}
 		>
 			<AccordionSummary expandIcon={<ArrowDropDown />}>
