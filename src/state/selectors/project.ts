@@ -1,1 +1,3 @@
-export const selectProject = (state) => state.projectState;
+import { RootState } from "..";
+
+export const selectProjectState = (state) => state.projectState;

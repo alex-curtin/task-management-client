@@ -1,4 +1,4 @@
-export const selectProjectState = (state) => state.projectsState;
+export const selectProjectsState = (state) => state.projectsState;
 
 export const selectAllProjects = (state) => state.projectsState.allProjects;
 

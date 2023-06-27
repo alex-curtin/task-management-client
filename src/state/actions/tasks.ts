@@ -15,7 +15,19 @@ export interface GetUserTasksErrorAction {
 	payload: ErrorType;
 }
 
+export interface SetUserTasksAction {
+	type: ActionType.SET_USER_TASKS;
+	payload: TaskType[];
+}
+
+export interface SetProjectTasksAction {
+	type: ActionType.SET_PROJECT_TASKS;
+	payload: TaskType[];
+}
+
 export type TasksAction =
 	| GetUserTasksStartAction
 	| GetUserTasksSuccessAction
-	| GetUserTasksErrorAction;
+	| GetUserTasksErrorAction
+	| SetUserTasksAction
+	| SetProjectTasksAction;

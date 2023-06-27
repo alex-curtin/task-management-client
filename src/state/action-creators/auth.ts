@@ -1,55 +1,82 @@
 import { Dispatch } from "redux";
 
 import { ActionType } from "../action-types";
-import { Action } from "../actions";
+import {
+	Action,
+	RequestCompleteAction,
+	RequestErrorAction,
+	RequestStartAction,
+	SetCurrentUserAction,
+} from "../actions";
 import { BASE_URL } from "../../constants";
+import { signIn, fetchCurrentUser } from "../../lib";
+import { UserType } from "../../types";
 
-export const signIn = (body) => async (dispatch: Dispatch<Action>) => {
-	dispatch({ type: ActionType.SIGN_IN_START });
-	try {
-		const res = await fetch(`${BASE_URL}/auth/signin`, {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-			},
-			body: JSON.stringify(body),
+export const signInUser =
+	(body: UserType) => async (dispatch: Dispatch<Action>) => {
+		dispatch<RequestStartAction>({
+			type: ActionType.REQUEST_START,
+			payload: "signingInUser",
 		});
-		const { token, user } = await res.json();
+		try {
+			const user = await signIn(body);
 
-		localStorage.setItem("token", token);
+			dispatch<SetCurrentUserAction>({
+				type: ActionType.SET_CURRENT_USER,
+				payload: { id: user.id, username: user.username },
+			});
+		} catch (error) {
+			console.log(error);
 
-		dispatch({
-			type: ActionType.SIGN_IN_SUCCESS,
-			payload: { id: user.id, username: user.username },
-		});
-	} catch (error) {
-		console.log({ error });
-		dispatch({
-			type: ActionType.SIGN_IN_ERROR,
-			payload: error,
-		});
-	}
-};
+			dispatch<RequestErrorAction>({
+				type: ActionType.REQUEST_ERROR,
+				payload: {
+					key: "signingInUser",
+					error,
+				},
+			});
+		} finally {
+			dispatch<RequestCompleteAction>({
+				type: ActionType.REQUEST_COMPLETE,
+				payload: "signingInUser",
+			});
+		}
+	};
 
 export const getCurrentUser = () => async (dispatch: Dispatch<Action>) => {
-	dispatch({ type: ActionType.GET_CURRENT_USER_START });
-	const token = localStorage.getItem("token");
-	if (!token) {
-		return dispatch({ type: ActionType.GET_CURRENT_USER_FAIL });
-	}
-	try {
-		const res = await fetch(`${BASE_URL}/auth/user/current`, {
-			headers: {
-				"x-auth-token": token,
-			},
-		});
-		const user = await res.json();
+	dispatch<RequestStartAction>({
+		type: ActionType.REQUEST_START,
+		payload: "fetchingCurrentUser",
+	});
 
-		dispatch({
-			type: ActionType.GET_CURRENT_USER_SUCCESS,
+	try {
+		const user = await fetchCurrentUser();
+
+		dispatch<SetCurrentUserAction>({
+			type: ActionType.SET_CURRENT_USER,
 			payload: user,
 		});
 	} catch (error) {
 		console.log(error);
+
+		dispatch<RequestErrorAction>({
+			type: ActionType.REQUEST_ERROR,
+			payload: {
+				key: "fetchingCurrentUser",
+				error,
+			},
+		});
+	} finally {
+		dispatch<RequestCompleteAction>({
+			type: ActionType.REQUEST_COMPLETE,
+			payload: "fetchingCurrentUser",
+		});
 	}
+};
+
+export const setCurrentUser = (user: UserType): SetCurrentUserAction => {
+	return {
+		type: ActionType.SET_CURRENT_USER,
+		payload: user,
+	};
 };

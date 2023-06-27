@@ -1,1 +1,3 @@
-export const selectAuthState = (state) => state.authState;
+import { AuthState } from "../reducers/authReducer";
+
+export const selectAuthState = (state): AuthState => state.authState;

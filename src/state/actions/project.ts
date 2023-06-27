@@ -29,10 +29,31 @@ export interface GetProjectTasksErrorAction {
 	payload: ErrorType;
 }
 
+export interface CreateProjectTaskStartAction {
+	type: ActionType.CREATE_PROJECT_TASK_START;
+}
+
+export interface CreateProjectTaskSuccessAction {
+	type: ActionType.CREATE_PROJECT_TASK_SUCCESS;
+}
+
+export interface CreateProjectTaskErrorAction {
+	type: ActionType.CREATE_PROJECT_TASK_ERROR;
+}
+
+export interface SetProjectAction {
+	type: ActionType.SET_PROJECT;
+	payload: ProjectType;
+}
+
 export type ProjectAction =
 	| GetProjectStartAction
 	| GetProjectErrorAction
 	| GetProjectSuccessAction
 	| GetProjectTasksStartAction
 	| GetProjectTasksSuccessAction
-	| GetProjectTasksErrorAction;
+	| GetProjectTasksErrorAction
+	| CreateProjectTaskErrorAction
+	| CreateProjectTaskStartAction
+	| CreateProjectTaskSuccessAction
+	| SetProjectAction;

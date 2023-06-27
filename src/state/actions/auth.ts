@@ -17,7 +17,13 @@ export interface SignInErrorAction {
 	payload: ErrorType;
 }
 
+export interface SetCurrentUserAction {
+	type: ActionType.SET_CURRENT_USER;
+	payload: UserType;
+}
+
 export type AuthAction =
 	| SignInStartAction
 	| SignInErrorAction
-	| SignInSuccessAction;
+	| SignInSuccessAction
+	| SetCurrentUserAction;
