@@ -71,9 +71,6 @@ export const fetchCurrentUserTasks = async (): TaskType[] => {
 };
 
 export const createProjectTask = async (body: TaskType): TaskType => {
-	const { data } = await axios.post({
-		url: "/tasks/new",
-		data: body,
-	});
+	const { data } = await axios.post("/tasks/new", body);
 	return data;
 };
