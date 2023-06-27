@@ -1,21 +1,54 @@
-import { Avatar, Card, CardContent, Typography } from "@mui/material";
+import {
+	Avatar,
+	Box,
+	ButtonBase,
+	Card,
+	CardContent,
+	Chip,
+	Typography,
+} from "@mui/material";
 
-import { TaskObject } from "..";
+import { TaskType } from "../../types";
+import { priorities } from "../../constants";
 
 interface TaskProps {
-	task: TaskObject;
+	task: TaskType;
 }
 
 export const Task: React.FC<TaskProps> = ({ task }) => {
-	const { task_name: taskName, assignee_username: username } = task;
+	const {
+		task_name: taskName,
+		assignee_username: username,
+		description,
+		priority,
+	} = task;
+	const priorityObj = priorities[priority];
 	return (
-		<Card>
-			<CardContent>
-				<Typography color="text.secondary">{task.task_name}</Typography>
-				<Avatar sx={{ ml: "auto", width: 24, height: 24, fontSize: 12 }}>
-					{username?.charAt(0).toUpperCase()}
-				</Avatar>
-			</CardContent>
-		</Card>
+		<ButtonBase disableRipple sx={{ display: "block", textAlign: "left" }}>
+			<Card>
+				<CardContent>
+					<Typography color="text.secondary">{task.task_name}</Typography>
+					<Typography variant="body2">{description}</Typography>
+					<Box
+						sx={{
+							display: "flex",
+							justifyContent: "space-between",
+							alignItems: "center",
+							mt: 2,
+						}}
+					>
+						<Chip
+							color={priorityObj.color}
+							label={`${priorityObj.label} priority`}
+							size="small"
+							sx={{ cursor: "inherit" }}
+						/>
+						<Avatar sx={{ width: 24, height: 24, fontSize: 12 }}>
+							{username?.charAt(0).toUpperCase()}
+						</Avatar>
+					</Box>
+				</CardContent>
+			</Card>
+		</ButtonBase>
 	);
 };

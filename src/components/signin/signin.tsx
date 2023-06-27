@@ -1,19 +1,16 @@
 import { useState } from "react";
 import { Box, Button, Stack, TextField, Typography } from "@mui/material";
-import { useDispatch } from "react-redux";
 
 import { useActions } from "../../hooks/useActions";
-import { signIn } from "../../state/action-creators";
 
 export const SignIn = () => {
 	const [username, setUsername] = useState("");
 	const [password, setPassword] = useState("");
-	const { signIn } = useActions();
-	const dispatch = useDispatch();
 
-	const handleSignin = () => {
-		signIn({ username, password });
-		// dispatch(signIn({ username, password }));
+	const { signInUser } = useActions();
+
+	const handleSignin = async () => {
+		signInUser({ username, password });
 	};
 
 	return (
@@ -29,7 +26,6 @@ export const SignIn = () => {
 				required
 				size="small"
 				label="username"
-				defaultValue="Enter username"
 				value={username}
 				onChange={(e) => setUsername(e.target.value)}
 			/>
@@ -37,7 +33,6 @@ export const SignIn = () => {
 				required
 				size="small"
 				label="password"
-				defaultValue="Enter password"
 				value={password}
 				type="password"
 				onChange={(e) => setPassword(e.target.value)}

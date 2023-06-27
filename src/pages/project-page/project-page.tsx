@@ -3,29 +3,29 @@ import { useParams } from "react-router-dom";
 import { Box, Typography } from "@mui/material";
 
 import { lanes } from "../../constants";
-import { Lane, PageContainer } from "../../components";
+import { Lane, PageContainer, ProjectHeader } from "../../components";
+import { useActions, useSelector } from "../../hooks";
+import {
+	selectLoadingState,
+	selectProjectState,
+	selectTasksState,
+} from "../../state";
 
 export const ProjectPage: React.FC = () => {
 	const { projectId } = useParams();
-	const [projectData, setProjectData] = useState(null);
-	const [tasks, setTasks] = useState([]);
+	const { project, tasks } = useSelector(selectProjectState);
+	const { fetchingProject = false } = useSelector(selectLoadingState);
+	const { getProject } = useActions();
 
 	useEffect(() => {
-		const fetchProject = async () => {
-			const res = await fetch(
-				`http://localhost:6300/projects/projectId/${projectId}`,
-			);
-			const { project, tasks: fetchedTasks } = await res.json();
-			setProjectData(project);
-			setTasks(fetchedTasks);
-		};
-
-		fetchProject();
+		getProject(projectId);
 	}, [projectId]);
 
-	return projectData ? (
+	return !project ? (
+		<PageContainer>Loading...</PageContainer>
+	) : (
 		<PageContainer>
-			<Typography>{projectData.project_name}</Typography>
+			<ProjectHeader project={project} tasks={tasks} />
 			<Box
 				sx={{
 					display: "grid",
@@ -42,7 +42,5 @@ export const ProjectPage: React.FC = () => {
 				))}
 			</Box>
 		</PageContainer>
-	) : (
-		<PageContainer>Loading</PageContainer>
 	);
 };

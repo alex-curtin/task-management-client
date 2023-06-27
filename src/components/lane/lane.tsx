@@ -2,19 +2,11 @@ import { Box, Stack, Typography } from "@mui/material";
 
 import { Task } from "../task";
 
-export interface TaskObject {
-	id: number;
-	task_name: string;
-	description: string;
-	status: number;
-	priority: number;
-	assignee: number;
-	assignee_username: string;
-}
+import type { TaskType } from "../../types";
 
 interface LaneProps {
 	label: string;
-	tasks: TaskObject[];
+	tasks: TaskType[];
 }
 
 export const Lane: React.FC<LaneProps> = ({ label, tasks }) => {
@@ -23,14 +15,23 @@ export const Lane: React.FC<LaneProps> = ({ label, tasks }) => {
 			key={label}
 			sx={{
 				border: 1,
-				borderColor: "grey.400",
+				borderColor: "grey.300",
 				borderRadius: 1,
-				backgroundColor: "grey.400",
-				color: "grey.100",
-				px: 2,
+				backgroundColor: "grey.200",
+				color: "grey.800",
+				px: "4px",
 			}}
 		>
-			<Typography sx={{ backgroundColor: "grey.400" }}>{label}</Typography>
+			<Typography
+				sx={{
+					backgroundColor: "grey.200",
+					textTransform: "uppercase",
+					textAlign: "center",
+					my: 1,
+				}}
+			>
+				{label}
+			</Typography>
 			<Stack spacing={1}>
 				{tasks.map((task) => (
 					<Task key={task.id} task={task} />

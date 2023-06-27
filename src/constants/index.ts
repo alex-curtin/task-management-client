@@ -20,4 +20,19 @@ export const lanes: Lanes = {
 	},
 };
 
+export const priorities = {
+	1: {
+		label: "low",
+		color: "success",
+	},
+	2: {
+		label: "medium",
+		color: "warning",
+	},
+	3: {
+		label: "high",
+		color: "error",
+	},
+};
+
 export * from "./api";
