@@ -6,3 +6,4 @@ export * from "./project-header";
 export * from "./projects-list";
 export * from "./sidebar";
 export * from "./signin";
+export * from "./task-details";

@@ -1,6 +1,6 @@
 import { Box, Stack, Typography } from "@mui/material";
 
-import { Task } from "../task";
+import { TaskCard } from "../task-card";
 
 import type { TaskType } from "../../types";
 
@@ -34,7 +34,7 @@ export const Lane: React.FC<LaneProps> = ({ label, tasks }) => {
 			</Typography>
 			<Stack spacing={1}>
 				{tasks.map((task) => (
-					<Task key={task.id} task={task} />
+					<TaskCard key={task.id} task={task} />
 				))}
 			</Stack>
 		</Box>
