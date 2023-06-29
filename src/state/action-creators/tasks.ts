@@ -159,7 +159,6 @@ export const updateProjectTaskStatus =
 	async (dispatch: Dispatch<Action>) => {
 		dispatch({ type: ActionType.REQUEST_START, payload: "updatingTask" });
 		try {
-			const task = await updateTask(taskId, { status: newStatus });
 			dispatch({
 				type: ActionType.UPDATE_PROJECT_TASK_STATUS,
 				payload: {
@@ -169,7 +168,9 @@ export const updateProjectTaskStatus =
 					newIndex,
 				},
 			});
+			const task = await updateTask(taskId, { status: newStatus });
 		} catch (error) {
+			console.log(error);
 			dispatch({
 				type: ActionType.REQUEST_ERROR,
 				payload: {

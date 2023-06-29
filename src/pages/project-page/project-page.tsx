@@ -18,12 +18,16 @@ export const ProjectPage: React.FC = () => {
 	const { fetchingProject = false } = useSelector(selectLoadingState);
 	const { getProject, reorderProjectTasks, updateProjectTaskStatus } =
 		useActions();
-
+	const [draggingOverLane, setDraggingOverLane] = useState<number | null>(null);
 	useEffect(() => {
 		getProject(projectId);
 	}, [projectId]);
 
 	const handleDragEnd = ({ destination, source }) => {
+		setDraggingOverLane(null);
+		if (!destination) {
+			return;
+		}
 		if (source.droppableId === destination.droppableId) {
 			reorderProjectTasks(
 				parseInt(source.droppableId),
@@ -37,11 +41,21 @@ export const ProjectPage: React.FC = () => {
 		const { index: prevIndex } = source;
 		const newStatus = parseInt(destination.droppableId);
 		const { index: newIndex } = destination;
-
 		updateProjectTaskStatus(taskId, prevStatus, newStatus, prevIndex, newIndex);
 	};
 
 	const handleDragStart = () => {};
+
+	const handleDragUpdate = ({ destination, source }) => {
+		const { droppableId } = destination || {};
+		if (!droppableId) {
+			setDraggingOverLane(null);
+			return;
+		}
+		if (parseInt(droppableId) !== draggingOverLane) {
+			setDraggingOverLane(parseInt(droppableId));
+		}
+	};
 
 	return !project ? (
 		<PageContainer>Loading...</PageContainer>
@@ -61,6 +75,7 @@ export const ProjectPage: React.FC = () => {
 				<DragDropContext
 					onDragEnd={handleDragEnd}
 					onDragStart={handleDragStart}
+					onDragUpdate={handleDragUpdate}
 				>
 					{taskStatuses.map(({ statusCode, label }) => (
 						<Lane
@@ -68,6 +83,7 @@ export const ProjectPage: React.FC = () => {
 							label={label}
 							statusCode={statusCode}
 							tasks={tasks[statusCode]}
+							isDraggingOver={draggingOverLane === statusCode}
 						/>
 					))}
 				</DragDropContext>
