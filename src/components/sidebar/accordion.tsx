@@ -6,9 +6,11 @@ import {
 	AccordionSummary,
 	AccordionDetails,
 	Typography,
+	ButtonBase,
 } from "@mui/material";
 
 import { priorities } from "../../constants";
+import { useActions } from "../../hooks";
 
 interface AccordionProps {
 	title: string;
@@ -24,6 +26,12 @@ export const AccordionComponent: React.FC<AccordionProps> = ({
 	items = [],
 	type = "project",
 }) => {
+	const { getCurrentTask } = useActions();
+
+	const onClickTask = (taskId) => {
+		getCurrentTask(taskId);
+	};
+
 	const renderItems =
 		type === "project"
 			? items.map((item) => (
@@ -46,7 +54,9 @@ export const AccordionComponent: React.FC<AccordionProps> = ({
 							pl: 1,
 						}}
 					>
-						<Typography>{item.name}</Typography>
+						<ButtonBase onClick={() => onClickTask(item.id)}>
+							<Typography>{item.name}</Typography>
+						</ButtonBase>
 						<Box
 							sx={{
 								borderRadius: "50%",

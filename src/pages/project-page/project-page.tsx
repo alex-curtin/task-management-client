@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Box, Typography } from "@mui/material";
 
-import { lanes } from "../../constants";
+import { taskStatuses } from "../../constants";
 import { Lane, PageContainer, ProjectHeader } from "../../components";
 import { useActions, useSelector } from "../../hooks";
 import {
@@ -30,14 +30,16 @@ export const ProjectPage: React.FC = () => {
 				sx={{
 					display: "grid",
 					gridGap: 10,
-					gridTemplateColumns: `repeat(${Object.keys(lanes).length}, 1fr)`,
+					gridTemplateColumns: `repeat(${
+						Object.keys(taskStatuses).length
+					}, 1fr)`,
 				}}
 			>
-				{Object.values(lanes).map((lane) => (
+				{Object.entries(taskStatuses).map(([key, { label }]) => (
 					<Lane
-						key={lane.label}
-						label={lane.label}
-						tasks={tasks.filter((task) => task.status === lane.statusCode)}
+						key={key}
+						label={label}
+						tasks={tasks.filter((task) => task.status === parseInt(key))}
 					/>
 				))}
 			</Box>

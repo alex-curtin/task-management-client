@@ -27,3 +27,8 @@ export interface UserType {
 	username: string;
 	password?: string;
 }
+
+export interface TaskDetailsType extends TaskType {
+	created_by: UserType;
+	assignee: UserType;
+}

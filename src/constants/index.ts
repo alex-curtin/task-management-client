@@ -1,22 +1,18 @@
-interface Lanes {
-	[key: string]: {
-		label: String;
-		statusCode: number;
+interface TaskStatuses {
+	[key: number]: {
+		label: string;
 	};
 }
 
-export const lanes: Lanes = {
-	todo: {
+export const taskStatuses = {
+	1: {
 		label: "To Do",
-		statusCode: 1,
 	},
-	progress: {
+	2: {
 		label: "In Progress",
-		statusCode: 2,
 	},
-	done: {
+	3: {
 		label: "Done",
-		statusCode: 3,
 	},
 };
 
