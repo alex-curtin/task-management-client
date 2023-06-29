@@ -1,5 +1,5 @@
 import { ActionType } from "../action-types";
-import { TaskType, ErrorType } from "../../types";
+import { TaskType, ErrorType, TaskDetailsType } from "../../types";
 
 export interface GetUserTasksStartAction {
 	type: ActionType.GET_PROJECT_TASKS_START;
@@ -25,9 +25,15 @@ export interface SetProjectTasksAction {
 	payload: TaskType[];
 }
 
+export interface SetCurrentTaskAction {
+	type: ActionType.SET_CURRENT_TASK;
+	payload: TaskDetailsType;
+}
+
 export type TasksAction =
 	| GetUserTasksStartAction
 	| GetUserTasksSuccessAction
 	| GetUserTasksErrorAction
 	| SetUserTasksAction
-	| SetProjectTasksAction;
+	| SetProjectTasksAction
+	| SetCurrentTaskAction;

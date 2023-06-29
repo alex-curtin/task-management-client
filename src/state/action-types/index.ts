@@ -9,6 +9,7 @@ export enum ActionType {
 	REQUEST_COMPLETE = "REQUEST_COMPLETE",
 	REQUEST_ERROR = "REQUEST_ERROR",
 	ADD_PROJECT_TASK = "ADD_PROJECT_TASK",
+	SET_CURRENT_TASK = "SET_CURRENT_TASK",
 }
 
 export const RequestActionType = {

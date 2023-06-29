@@ -1,1 +1,3 @@
-export const selectTasksState = (state) => state.tasksState;
+import { TasksState } from "../reducers/tasksReducer";
+
+export const selectTasksState = (state): TasksState => state.tasksState;

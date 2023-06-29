@@ -1,13 +1,15 @@
 import { Action } from "../actions";
 import { ActionType } from "../action-types";
-import { ErrorType, TaskType } from "../../types";
+import { ErrorType, TaskDetailsType, TaskType } from "../../types";
 
-interface TasksState {
+export interface TasksState {
 	tasks: TaskType[];
+	currentTask: TaskDetailsType | null;
 }
 
 const initialState: TasksState = {
 	tasks: [],
+	currentTask: null,
 };
 
 const reducer = (
@@ -20,6 +22,11 @@ const reducer = (
 			return {
 				...state,
 				tasks: action.payload,
+			};
+		case ActionType.SET_CURRENT_TASK:
+			return {
+				...state,
+				currentTask: action.payload,
 			};
 		default:
 			return state;

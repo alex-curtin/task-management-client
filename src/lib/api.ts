@@ -1,7 +1,7 @@
 import axios from "axios";
 
 import { BASE_URL } from "../constants";
-import { ProjectType, TaskType, UserType } from "../types";
+import { ProjectType, TaskDetailsType, TaskType, UserType } from "../types";
 
 axios.defaults.baseURL = BASE_URL;
 axios.defaults.headers.post["Content-Type"] = "application/json";
@@ -72,5 +72,11 @@ export const fetchCurrentUserTasks = async (): TaskType[] => {
 
 export const createProjectTask = async (body: TaskType): TaskType => {
 	const { data } = await axios.post("/tasks/new", body);
+	return data;
+};
+
+export const fetchTask = async (taskId: number): TaskDetailsType => {
+	console.log("in api call", taskId);
+	const { data } = await axios.get(`/tasks/id/${taskId}`);
 	return data;
 };
