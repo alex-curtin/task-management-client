@@ -8,7 +8,7 @@ import {
 	SetProjectAction,
 } from "../actions";
 import { ProjectType } from "../../types";
-import { BASE_URL } from "../../constants";
+import { BASE_URL, taskStatuses } from "../../constants";
 import { fetchAllProjects, fetchUserProjects, fetchProject } from "../../lib";
 
 export const getAllProjects = () => async (dispatch: Dispatch<Action>) => {
@@ -78,6 +78,11 @@ export const getProject =
 			dispatch({
 				type: ActionType.SET_PROJECT,
 				payload: project,
+			});
+			// task statuses are hard coded for now
+			dispatch({
+				type: ActionType.SET_PROJECT_TASK_STATUSES,
+				payload: taskStatuses,
 			});
 			dispatch({
 				type: ActionType.SET_PROJECT_TASKS,

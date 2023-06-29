@@ -30,10 +30,37 @@ export interface SetCurrentTaskAction {
 	payload: TaskDetailsType;
 }
 
+export interface UpdateProjectTaskAction {
+	type: ActionType.UPDATE_PROJECT_TASK;
+	payload: TaskTypeType;
+}
+
+export interface ReorderProjectTasksAction {
+	type: ActionType.REORDER_PROJECT_TASKS;
+	payload: {
+		prevIndex: number;
+		newIndex: number;
+		status: number;
+	};
+}
+
+export interface UpdateProjectTaskStatusAction {
+	type: ActionType.UPDATE_PROJECT_TASK_STATUS;
+	payload: {
+		prevStatus: number;
+		newIndex: number;
+		prevIndex: number;
+		newIndex: number;
+	};
+}
+
 export type TasksAction =
 	| GetUserTasksStartAction
 	| GetUserTasksSuccessAction
 	| GetUserTasksErrorAction
 	| SetUserTasksAction
 	| SetProjectTasksAction
-	| SetCurrentTaskAction;
+	| SetCurrentTaskAction
+	| UpdateProjectTaskAction
+	| ReorderProjectTasksAction
+	| UpdateProjectTaskStatusAction;

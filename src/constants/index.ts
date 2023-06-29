@@ -1,20 +1,22 @@
-interface TaskStatuses {
-	[key: number]: {
-		label: string;
-	};
+interface TaskStatus {
+	statusCode: number;
+	label: string;
 }
 
-export const taskStatuses = {
-	1: {
+export const taskStatuses: TaskStatus = [
+	{
+		statusCode: 1,
 		label: "To Do",
 	},
-	2: {
+	{
+		statusCode: 2,
 		label: "In Progress",
 	},
-	3: {
+	{
+		statusCode: 3,
 		label: "Done",
 	},
-};
+];
 
 export const priorities = {
 	1: {

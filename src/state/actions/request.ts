@@ -9,7 +9,8 @@ export type RequestType =
 	| "fetchingUserProjects"
 	| "fetchingUserTasks"
 	| "signingInUser"
-	| "fetchingCurrentTask";
+	| "fetchingCurrentTask"
+	| "updatingTask";
 
 export interface RequestStartAction {
 	type: ActionType.REQUEST_START;

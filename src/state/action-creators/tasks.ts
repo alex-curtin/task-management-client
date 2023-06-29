@@ -6,8 +6,14 @@ import {
 	SetUserTasksAction,
 	SetProjectTasksAction,
 	SetCurrentTaskAction,
+	ReorderProjectTasksAction,
 } from "../actions";
-import { fetchCurrentUserTasks, createProjectTask, fetchTask } from "../../lib";
+import {
+	fetchCurrentUserTasks,
+	createProjectTask,
+	fetchTask,
+	updateTask,
+} from "../../lib";
 import { TaskType } from "../../types";
 
 export const getCurrentUserTasks = () => async (dispatch: Dispatch<Action>) => {
@@ -105,3 +111,76 @@ export const setCurrentTask = (taskId: number | null): SetCurrentTaskAction => {
 		payload: null,
 	};
 };
+
+export const editTask =
+	(taskId: number, body: Partial<TaskType>) =>
+	async (dispatch: Dispatch<Action>) => {
+		dispatch({ type: ActionType.REQUEST_START, payload: "updatingTask" });
+
+		try {
+			const task = await updateTask(taskId, body);
+			dispatch({
+				type: ActionType.UPDATE_PROJECT_TASK,
+				payload: task,
+			});
+		} catch (error) {
+			console.log(error);
+
+			dispatch({
+				type: ActionType.REQUEST_ERROR,
+				payload: { key: "updatingTask", error },
+			});
+		}
+	};
+
+export const reorderProjectTasks = (
+	status: number,
+	prevIndex: number,
+	newIndex: number,
+): ReorderProjectTasksAction => {
+	return {
+		type: ActionType.REORDER_PROJECT_TASKS,
+		payload: {
+			status,
+			prevIndex,
+			newIndex,
+		},
+	};
+};
+
+export const updateProjectTaskStatus =
+	(
+		taskId: number,
+		prevStatus: number,
+		newStatus: number,
+		prevIndex: number,
+		newIndex: number,
+	) =>
+	async (dispatch: Dispatch<Action>) => {
+		dispatch({ type: ActionType.REQUEST_START, payload: "updatingTask" });
+		try {
+			const task = await updateTask(taskId, { status: newStatus });
+			dispatch({
+				type: ActionType.UPDATE_PROJECT_TASK_STATUS,
+				payload: {
+					prevStatus,
+					newStatus,
+					prevIndex,
+					newIndex,
+				},
+			});
+		} catch (error) {
+			dispatch({
+				type: ActionType.REQUEST_ERROR,
+				payload: {
+					key: "updatingTask",
+					error,
+				},
+			});
+		} finally {
+			dispatch({
+				type: ActionType.REQUEST_COMPLETE,
+				payload: "updatingTask",
+			});
+		}
+	};

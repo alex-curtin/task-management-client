@@ -32,3 +32,8 @@ export interface TaskDetailsType extends TaskType {
 	created_by: UserType;
 	assignee: UserType;
 }
+
+export interface TaskStatusType {
+	statusCode: number;
+	label: string;
+}

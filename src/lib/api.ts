@@ -76,7 +76,14 @@ export const createProjectTask = async (body: TaskType): TaskType => {
 };
 
 export const fetchTask = async (taskId: number): TaskDetailsType => {
-	console.log("in api call", taskId);
 	const { data } = await axios.get(`/tasks/id/${taskId}`);
+	return data;
+};
+
+export const updateTask = async (
+	taskId: number,
+	body: Partial<TaskDetailsType> = {},
+): TaskDetailsType => {
+	const { data } = await axios.put(`/tasks/update/${taskId}`, body);
 	return data;
 };

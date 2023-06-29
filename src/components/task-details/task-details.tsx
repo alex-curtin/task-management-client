@@ -4,7 +4,11 @@ import { Close } from "@mui/icons-material";
 import { Link } from "react-router-dom";
 
 import { useSelector, useActions } from "../../hooks";
-import { selectLoadingState, selectTasksState } from "../../state";
+import {
+	selectLoadingState,
+	selectProjectState,
+	selectTasksState,
+} from "../../state";
 import { TasksState } from "../../state/reducers/tasksReducer";
 import { TaskDetailsType } from "../../types";
 import { taskStatuses } from "../../constants";
@@ -29,7 +33,10 @@ export const TaskDetails: React.FC = () => {
 		task_name: taskName,
 	} = currentTask || {};
 
-	const { label: statusLabel } = taskStatuses[status];
+	// using hardcoded values for now
+	const { label: statusLabel } = taskStatuses.find(
+		(st) => st.statusCode === status,
+	);
 
 	if (fetchingCurrentTask) {
 		return <div>loading</div>;
