@@ -7,6 +7,7 @@ import {
 	SetProjectTasksAction,
 	SetCurrentTaskAction,
 	ReorderProjectTasksAction,
+	UpdateProjectTaskAction,
 } from "../actions";
 import {
 	fetchCurrentUserTasks,

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Box, Typography } from "@mui/material";
-import { DragDropContext } from "react-beautiful-dnd";
+import { DragDropContext, DropResult, DragUpdate } from "react-beautiful-dnd";
 
 import { taskStatuses } from "../../constants";
 import { Lane, PageContainer, ProjectHeader } from "../../components";
@@ -23,7 +23,7 @@ export const ProjectPage: React.FC = () => {
 		getProject(projectId);
 	}, [projectId]);
 
-	const handleDragEnd = ({ destination, source }) => {
+	const handleDragEnd = ({ destination, source }: DropResult) => {
 		setDraggingOverLane(null);
 		if (!destination) {
 			return;
@@ -46,7 +46,7 @@ export const ProjectPage: React.FC = () => {
 
 	const handleDragStart = () => {};
 
-	const handleDragUpdate = ({ destination, source }) => {
+	const handleDragUpdate = ({ destination, source }: DragUpdate) => {
 		const { droppableId } = destination || {};
 		if (!droppableId) {
 			setDraggingOverLane(null);

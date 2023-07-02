@@ -67,9 +67,9 @@ const reducer = (
 				return state;
 			}
 			const prevTasks = state.tasks[status];
-			const replaceIndex = newTasks.findIndex((t) => t.id === id);
+			const replaceIndex = prevTasks.findIndex((t) => t.id === id);
 			const newTasks = [
-				...prevTasks(0, replaceIndex),
+				...prevTasks.slice(0, replaceIndex),
 				task,
 				...prevTasks.slice(replaceIndex + 1),
 			];

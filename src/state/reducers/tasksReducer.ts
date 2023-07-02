@@ -28,6 +28,25 @@ const reducer = (
 				...state,
 				currentTask: action.payload,
 			};
+		case ActionType.UPDATE_PROJECT_TASK: {
+			const task = action.payload;
+			const newTasks = [...state.tasks];
+			const replaceIndex = newTasks.findIndex((t) => t.id === task.id);
+			if (replaceIndex !== -1) {
+				newTasks[replaceIndex] = {
+					id: task.id,
+					task_name: task.task_name,
+					status: task.status,
+					priority: task.priority,
+					project_id: task.project_id,
+				};
+			}
+			return {
+				...state,
+				currentTask: action.payload,
+				tasks: newTasks,
+			};
+		}
 		default:
 			return state;
 	}

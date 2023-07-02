@@ -20,7 +20,7 @@ const App = () => {
 
 	return (
 		<Box>
-			<NavBar />
+			{/* <NavBar /> */}
 			<Box
 				sx={{ display: "grid", gridTemplateColumns: "200px 1fr", px: 2, mt: 2 }}
 			>

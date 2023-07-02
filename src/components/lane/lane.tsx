@@ -1,5 +1,10 @@
 import { Box, Stack, Typography } from "@mui/material";
-import { Droppable, Draggable } from "react-beautiful-dnd";
+import {
+	Droppable,
+	Draggable,
+	DroppableProvided,
+	DroppableStateSnapshot,
+} from "react-beautiful-dnd";
 
 import { TaskCard } from "../task-card";
 import type { TaskType } from "../../types";
@@ -44,7 +49,7 @@ export const Lane: React.FC<LaneProps> = ({
 				droppableId={`${statusCode}`}
 				onDragOver={(...args) => console.log(arg)}
 			>
-				{(provided, snapshot) => (
+				{(provided: DroppableProvided, snapshot: DroppableStateSnapshot) => (
 					<Box
 						ref={provided.innerRef}
 						{...provided.droppableProps}

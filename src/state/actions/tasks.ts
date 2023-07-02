@@ -32,7 +32,7 @@ export interface SetCurrentTaskAction {
 
 export interface UpdateProjectTaskAction {
 	type: ActionType.UPDATE_PROJECT_TASK;
-	payload: TaskTypeType;
+	payload: TaskType;
 }
 
 export interface ReorderProjectTasksAction {

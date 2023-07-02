@@ -7,7 +7,11 @@ import {
 	Chip,
 	Typography,
 } from "@mui/material";
-import { Draggable } from "react-beautiful-dnd";
+import {
+	Draggable,
+	DraggableProvided,
+	DraggableStateSnapshot,
+} from "react-beautiful-dnd";
 
 import { TaskType } from "../../types";
 import { priorities } from "../../constants";
@@ -32,7 +36,7 @@ export const TaskCard: React.FC<TaskProps> = ({ task = {}, index }) => {
 
 	return (
 		<Draggable draggableId={id.toString()} index={index}>
-			{(provided, snapshot) => (
+			{(provided: DraggableProvided, snapshot: DraggableStateSnapshot) => (
 				<Box
 					ref={provided.innerRef}
 					{...provided.draggableProps}
@@ -52,7 +56,7 @@ export const TaskCard: React.FC<TaskProps> = ({ task = {}, index }) => {
 					>
 						<CardContent>
 							<Typography color="text.secondary">{task.task_name}</Typography>
-							<Typography variant="body2">{description}</Typography>
+							{/* <Typography variant="body2">{description}</Typography> */}
 							<Box
 								sx={{
 									display: "flex",

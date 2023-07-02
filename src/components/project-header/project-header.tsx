@@ -63,8 +63,10 @@ export const ProjectHeader: React.FC<ProjectHeaderProps> = ({
 			>
 				{project.project_name}
 			</Typography>
-			<Box sx={{ display: "flex" }}>{avatars}</Box>
-			<Typography variant="body2">{tasks.length} tasks</Typography>
+			{/* <Box sx={{ display: "flex" }}>{avatars}</Box> */}
+			<Typography variant="body2">
+				{tasks.length} {tasks.length === 1 ? "task" : "tasks"}
+			</Typography>
 			<ButtonBase onClick={() => setModalOpen(true)}>
 				<Add />
 			</ButtonBase>
